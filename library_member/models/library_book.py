@@ -2,6 +2,9 @@ from odoo import fields, models
 
 
 class Book(models.Model):
+    """
+    - Add support to ISBN10
+    """
     _inherit = "library.book"
 
     is_available = fields.Boolean("Is Available?")

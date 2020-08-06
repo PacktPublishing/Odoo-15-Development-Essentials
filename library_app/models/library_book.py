@@ -3,6 +3,9 @@ from odoo.exceptions import Warning
 
 
 class Book(models.Model):
+    """
+    Describes a Book catalogue.
+    """
     _name = 'library.book'
     _description = 'Book'
 
