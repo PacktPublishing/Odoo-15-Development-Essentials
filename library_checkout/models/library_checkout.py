@@ -51,6 +51,19 @@ class Checkout(models.Model):
         copy=False,
         group_expand="_group_expand_stage_id")
     state = fields.Selection(related="stage_id.state")
+    kanban_state = fields.Selection(
+        [("normal", "In Progress"),
+         ("blocked", "Blocked"),
+         ("done", "Ready for next stage")],
+        "Kanban State",
+        default="normal")
+    color = fields.Integer()
+    priority = fields.Selection(
+        [("0", "High"),
+         ("1", "Very High"),
+         ("2", "Critical")],
+        default="0")
+
 
     checkout_date = fields.Date(readonly=True)
     close_date = fields.Date(readonly=True)
@@ -98,6 +111,9 @@ class Checkout(models.Model):
         return new_record
 
     def write(self, vals):
+        # reset kanban state when changing stage
+        if "stage_id" in vals and "kanban_state" not in vals:
+            vals["kanban_state"] = "normal"
         # Code before write: `self` has the old values
         old_state = self.stage_id.state
         super().write(vals)
