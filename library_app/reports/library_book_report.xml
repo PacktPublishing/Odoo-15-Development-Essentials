@@ -1,0 +1,118 @@
+<odoo>
+
+  <record id="paperformat_euro_landscape" model="report.paperformat">
+    <field name="name">A4 Landscape</field>
+    <field name="format">A4</field>
+    <field name="orientation">Landscape</field>
+    <field name="margin_top">40</field>
+    <field name="margin_bottom">32</field>
+    <field name="margin_left">7</field>
+    <field name="margin_right">7</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">35</field>
+    <field name="dpi">90</field>
+  </record>
+
+  <record id="action_library_book_report" model="ir.actions.report">
+    <field name="name">Book Catalog</field>
+    <field name="model">library.book</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">library_app.book_catalog</field>
+    <field name="binding_model_id" ref="model_library_book" />
+    <field name="binding_type">report</field>
+    <field name="paperformat_id" ref="paperformat_euro_landscape" />
+  </record>
+
+  <template id="book_catalog">
+    <t t-call="web.html_container">
+      <t t-call="web.external_layout">
+
+        <!-- Running total: initialize variable -->
+        <t t-set="missing_count" t-value="0" />
+
+        <div class="page">
+
+          <!-- Report header content -->
+          <div class="container">
+            <div class="row bg-primary">
+              <div class="col-3">Title</div>
+              <div class="col-2">Publisher</div>
+              <div class="col-2">Date</div>
+              <div class="col-3">Publisher Address</div>
+              <div class="col-2">Authors</div>
+            </div>
+
+            <t t-foreach="docs" t-as="o">
+              <!-- Report row content -->
+              <div class="row">
+                <div class="col-3">
+                  <h4><span t-field="o.name" /></h4>
+                </div>
+                <div class="col-2">
+                  <span t-field="o.publisher_id" />
+
+                  <!-- Running total: increment and present -->
+                  <t t-set="missing_count"
+                     t-value="missing_count + int(not o.publisher_id)" />
+                  <p>(accum. <t t-esc="missing_count" />)</p>
+
+                </div>
+                <div class="col-2">
+                  <span t-field="o.date_published"
+                        t-options="{'widget': 'date'}" />
+                </div>
+                <div class="col-3">
+                  <div t-field="o.publisher_id"
+                       t-options='{
+                         "widget": "contact",
+                         "fields": ["address", "email", "phone", "website"], "no_marker": true}' />
+                </div>
+                <div class="col-2">
+                  <!-- Render Authors -->
+                  <ul class="list-unstyled">
+                    <t t-foreach="o.author_ids" t-as="author">
+                        <span t-field="author.image_128"
+                              t-options="{'widget': 'image', 'style': 'max-width: 32px'}" />
+                        <span t-field="author.name" />
+                    </t>
+                  </ul>
+                </div>
+              </div>
+            </t>
+
+          <!-- Report footer content -->
+          <div class="row">
+            <div class="col-3">
+              <t t-esc="len(docs)" /> Books
+            </div>
+            <div class="col-7" />
+            <div class="col-2">
+              <t t-esc="len(docs.mapped('author_ids'))" /> Authors
+            </div>
+          </div>
+
+          </div><!-- container -->
+        </div><!-- page -->
+
+      </t>
+    </t>
+  </template>
+
+
+  <record id="action_library_book_report_native"
+          model="ir.actions.report">
+    <field name="name">Native Language Book Catalog</field>
+    <field name="model">library.book</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">library_app.book_catalog_native</field>
+    <field name="binding_model_id" ref="model_library_book" />
+    <field name="binding_type">report</field>
+    <field name="paperformat_id" ref="paperformat_euro_landscape" />
+  </record>
+
+  <template id="book_catalog_native">
+    <t t-call="library_app.book_catalog"
+       t-lang="res_company.partner_id.lang" />
+  </template>
+
+</odoo>

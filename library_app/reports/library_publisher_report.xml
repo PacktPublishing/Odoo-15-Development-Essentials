@@ -1,0 +1,37 @@
+<odoo>
+
+  <record id="action_publisher_report" model="ir.actions.report">
+    <field name="name">Books by Publisher</field>
+    <field name="model">res.partner</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">library_app.publisher_report</field>
+    <field name="binding_model_id" ref="base.model_res_partner" />
+    <field name="binding_type">report</field>
+  </record>
+
+  <template id="publisher_report">
+    <t t-call="web.html_container">
+      <t t-call="web.external_layout">
+
+        <div class="page">
+          <div class="container">
+            <h1>Books by Publisher</h1>
+            <t t-foreach="publisher_books" t-as="group">
+                <h2 t-field="group[0].name" />
+                <ul>
+                  <t t-foreach="group[1]" t-as="book">
+                    <li>
+                      <b><span t-field="book.name" /></b>
+                      <span t-field="book.author_ids" />
+                    </li>
+                  </t>
+                </ul>
+            </t>
+          </div>
+        </div>
+
+      </t>
+    </t>
+  </template>
+
+</odoo>
