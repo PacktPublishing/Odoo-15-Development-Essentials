@@ -1,0 +1,10 @@
+<odoo>
+  <template id="assets_frontend"
+            name="library_portal_assets"
+            inherit_id="web.assets_frontend">
+    <xpath expr="." position="inside">
+      <link rel="stylesheet" type="text/css"
+            href="/library_portal/static/src/css/library.css"/>
+    </xpath>
+  </template>
+</odoo>

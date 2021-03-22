@@ -1,0 +1,102 @@
+<odoo>
+
+    <template id="portal_my_home" inherit_id="portal.portal_my_home"
+        priority="100" name="Show Book Checkouts" customize_show="True">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Book Checkouts</t>
+                <t t-set="url" t-value="'/my/book-checkouts'"/>
+                <t t-set="placeholder_count" t-value="'book_checkout_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="my_book_checkouts" name="My Book Checkouts">
+      <t t-call="portal.portal_layout">
+        <t t-if="checkouts" t-call="portal.portal_table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Request Date</th>
+              <th>Stage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr t-foreach="checkouts" t-as="doc">
+              <td>
+                <a t-attf-href="/my/book-checkout/{{slug(doc)}}">
+                  <span t-field="doc.name"/>
+                </a>
+              </td>
+              <td>
+                <span t-field="doc.request_date"/>
+              </td>
+              <td>
+                <span t-field="doc.stage_id.name" class="badge badge-pill badge-info"/>
+              </td>
+            </tr>
+          </tbody>
+        </t>
+        <t t-else="">
+            <div class="alert alert-warning" role="alert">
+              There are no book checkouts.
+            </div>
+        </t>
+      </t>
+    </template>
+
+    <template id="book_checkout" name="Checkout Form">
+      <t t-call="portal.portal_layout">
+        <t t-call="portal.portal_record_layout">
+          <t t-set="card_header">
+            <div class="row">
+              <div class="col">
+                <h5 class="text-truncate" t-field="doc.name" />
+              </div>
+              <div class="col text-right">
+                <span t-field="doc.stage_id.name" class="badge badge-pill badge-info" title="Current stage"/>
+              </div>
+            </div>
+          </t>
+          <t t-set="card_body">
+            <div class="row">
+              <strong>Member</strong>
+            </div>
+            <div class="row">
+              <div class="col flex-grow-0">
+                <img class="rounded-circle mt-1 o_portal_contact_img" t-att-src="image_data_uri(doc.member_id.image_1024)" alt="Contact"/>
+              </div>
+              <div class="col pl-sm-0">
+                <address t-field="doc.member_id" t-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'/>
+              </div>
+            </div>
+            <div class="row">
+              <strong>Borrowed books</strong>
+            </div>
+            <div class="row">
+              <div class="col">
+                <ul>
+                  <li t-foreach="doc.line_ids" t-as="line">
+                    <span t-field="line.book_id.display_name" />
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </t>
+        </t>
+      </t>
+    </template>
+
+    <template id="portal_layout" name="Portal breadcrumb: book checkout" inherit_id="portal.portal_breadcrumbs" >
+      <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+        <li t-if="page_name == 'book-checkouts' or doc" class="col-lg-2" t-attf-class="breadcrumb-item #{'active ' if not doc else ''}">
+          <a t-if="doc" t-attf-href="/my/book-checkouts?{{ keep_query() }}">Checkouts</a>
+            <t t-else="">Checkouts</t>
+        </li>
+        <li t-if="doc" class="breadcrumb-item active text-truncate col-8 col-lg-10">
+          <t t-esc="doc.name"/>
+        </li>
+      </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,36 @@
+<odoo>
+
+<template id="book_catalog" name="Book List">
+    <t t-call="web.frontend_layout">
+      <t t-set="title">Book Catalog</t>
+      <div class="oe_structure">
+        <div class="container">
+
+          <h1 class="h1-book-catalog">Book Catalog</h1>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Published</th>
+                <th scope="col">Publisher</th>
+              </tr>
+            </thead>
+            <tbody>
+
+      <t t-foreach="books" t-as="book">
+        <tr scope="row">
+            <td><span t-field="book.name" /></td>
+            <td><span t-field="book.date_published" /></td>
+            <td><span t-field="book.publisher_id" /></td>
+        </tr>
+      </t>
+
+            </tbody>
+          </table>
+
+      </div>
+    </div>
+  </t>
+</template>
+
+</odoo>
