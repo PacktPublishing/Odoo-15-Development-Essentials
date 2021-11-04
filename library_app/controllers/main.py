@@ -8,5 +8,5 @@ class Books(http.Controller):
         books = Book.search([])
         return http.request.render(
             "library_app.book_list_template",
-            {'books': books}
+            {"books": books}
         )

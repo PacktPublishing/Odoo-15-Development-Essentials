@@ -1,8 +1,7 @@
 <odoo>
 
   <!-- Library App Menu -->
-  <menuitem id="menu_library"
-            name="Library" />
+  <menuitem id="menu_library" name="Library" />
 
   <!-- Action to open the Book list -->
   <record id="action_library_book" model="ir.actions.act_window">
