@@ -2,6 +2,7 @@
     "name": "Library Members",
     "description": "Manage members borrowing books.",
     "author": "Daniel Reis",
+    "license": "AGPL-3",
     "depends": ["library_app", "mail"],
     "application": False,
     "data": [
