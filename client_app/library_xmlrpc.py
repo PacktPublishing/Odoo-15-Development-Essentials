@@ -34,9 +34,10 @@ class LibraryAPI():
     def unlink(self, id):
         return self._execute("unlink", [[id]])
 
+
 if __name__ == "__main__":
     # Sample test configurations
-    host, port, db = "localhost", 8069, "14-library"
+    host, port, db = "localhost", 8069, "library"
     user, pwd = "admin", "admin"
     api = LibraryAPI(host, port, db, user, pwd)
     from pprint import pprint

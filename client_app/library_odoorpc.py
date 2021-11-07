@@ -29,3 +29,12 @@ class LibraryAPI():
 
     def unlink(self, id):
         return self.Model.unlink(id)
+
+
+if __name__ == "__main__":
+    # Sample test configurations
+    host, port, db = "localhost", 8069, "library"
+    user, pwd = "admin", "admin"
+    api = LibraryAPI(host, port, db, user, pwd)
+    from pprint import pprint
+    pprint(api.search_read())

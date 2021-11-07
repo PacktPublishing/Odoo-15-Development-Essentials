@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from argparse import ArgumentParser
 # from library_xmlrpc import LibraryAPI
 from library_odoorpc import LibraryAPI
@@ -10,7 +12,7 @@ parser.add_argument(
 parser.add_argument("params", nargs="*")  # optional args
 args = parser.parse_args()
 
-host, port, db = "localhost", 8069, "14-library"
+host, port, db = "localhost", 8069, "library"
 user, pwd = "admin", "admin"
 api = LibraryAPI(host, port, db, user, pwd)
 

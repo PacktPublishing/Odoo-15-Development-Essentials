@@ -6,9 +6,9 @@ from xmlrpc import client
 srv = "http://localhost:8069"
 common = client.ServerProxy("%s/xmlrpc/2/common" % srv)
 common.version()
-# Result: {'server_version': '14.0', 'server_version_info': [14, 0, 0, 'final', 0, ''], 'server_serie': '14.0', 'protocol_version': 1}
+# Result: {'server_version': '15.0', 'server_version_info': [15, 0, 0, 'final', 0, ''], 'server_serie': '15.0', 'protocol_version': 1}
 
-db, user, password = "14-library", "admin", "admin"
+db, user, password = "library", "admin", "admin"
 uid = common.authenticate(db, user, password, {})
 print(uid)
 
