@@ -113,11 +113,11 @@
               <field name="request_date"/>
             </div>
             <div>
-              <t t-esc="'Requested on ' + record.request_date.value" />
+              <t t-out="'Requested on ' + record.request_date.value" />
               <t t-set="calendar_sign">
                 <i class="fa fa-calendar" title="Calendar" />
               </t>
-              <t t-raw="calendar_sign" />
+              <t t-out="calendar_sign" />
             </div>
 
             <div t-if="record.num_books.raw_value == 0">
