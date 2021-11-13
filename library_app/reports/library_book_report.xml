@@ -54,7 +54,7 @@
                   <!-- Running total: increment and present -->
                   <t t-set="missing_count"
                      t-value="missing_count + int(not o.publisher_id)" />
-                  <p>(accum. <t t-esc="missing_count" />)</p>
+                  <p>(accum. <t t-out="missing_count" />)</p>
 
                 </div>
                 <div class="col-2">
@@ -83,11 +83,11 @@
           <!-- Report footer content -->
           <div class="row">
             <div class="col-3">
-              <t t-esc="len(docs)" /> Books
+              <t t-out="len(docs)" /> Books
             </div>
             <div class="col-7" />
             <div class="col-2">
-              <t t-esc="len(docs.mapped('author_ids'))" /> Authors
+              <t t-out="len(docs.mapped('author_ids'))" /> Authors
             </div>
           </div>
 
