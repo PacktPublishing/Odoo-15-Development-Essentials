@@ -63,7 +63,7 @@
               <strong>Member</strong>
             </div>
             <div class="row">
-              <div class="col flex-grow-0">
+              <div t-if="doc.member_id.image_1024" class="col flex-grow-0">
                 <img class="rounded-circle mt-1 o_portal_contact_img" t-att-src="image_data_uri(doc.member_id.image_1024)" alt="Contact"/>
               </div>
               <div class="col pl-sm-0">
