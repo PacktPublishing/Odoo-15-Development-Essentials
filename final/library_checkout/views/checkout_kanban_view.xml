@@ -1,0 +1,192 @@
+<odoo>
+
+  <record id="library_checkout_kanban" model="ir.ui.view">
+    <field name="model">library.checkout</field>
+    <field name="arch" type="xml">
+
+<!-- Minimalistic Kanban View
+<kanban>
+  <templates>
+    <t t-name="kanban-box">
+      <div>
+        <field name="name" />
+      </div>
+    </t>
+  </templates>
+</kanban>
+-->
+
+<kanban default_group_by="stage_id" quick_create="true">
+
+  <!-- Field list to ensure is loaded ... -->
+  <field name="color" />
+  <field name="line_ids" />
+  <field name="num_books" />
+  <field name="state" />
+
+  <progressbar
+     field="kanban_state"
+     colors='{
+       "done": "success",
+       "blocked": "danger",
+       "normal": "muted"}'
+     sum_field="num_books"
+  />
+
+  <templates>
+
+    <t t-name="book_covers">
+        <!-- "limit" is a variable set on the t-call -->
+      <div>
+        <t t-foreach="record.line_ids.raw_value.slice(0, limit)" t-as="line">
+          <img t-att-src="kanban_image(
+            'library.checkout.line', 'book_cover', line)"
+            class="oe_avatar" height="60" alt="Cover" />
+          </t>
+      </div>
+    </t>
+
+    <t t-name="kanban-box">
+      <div t-attf-class="oe_kanban_global_click
+         {{!selection_mode ? 'oe_kanban_color_' +
+           kanban_getcolor(record.color.raw_value) : ''}}">
+
+        <div class="o_dropdown_kanban dropdown">
+          <!-- Top-right drop down menu ... -->
+          <a class="dropdown-toggle btn"
+             role="button" data-toggle="dropdown"
+             title="Dropdown menu" href="#">
+            <span class="fa fa-ellipsis-v" />
+          </a>
+          <div class="dropdown-menu" role="menu">
+
+            <!-- Edit menu option -->
+            <t t-if="widget.editable">
+              <a role="menuitem" type="edit"
+                 class="dropdown-item">Edit</a>
+            </t>
+            <!-- Delete menu option -->
+            <t t-if="widget.deletable">
+              <a role="menuitem" type="delete"
+                 class="dropdown-item">Delete</a>
+            </t>
+
+            <!-- Separator line -->
+            <div role="separator" class="dropdown-divider" />
+
+            <!-- Color picker option: -->
+            <ul class="oe_kanban_colorpicker" data-field="color" />
+
+            <!-- Set as Done menu option -->
+            <a t-if="widget.editable and record.state != 'done'"
+               role="menuitem" class="dropdown-item"
+               name="button_done" type="object">Set as Done</a>
+
+          </div>
+
+        </div>
+
+        <div class="oe_kanban_content">
+          <div class="o_kanban_record_title">
+            <!-- Title area ... -->
+            <!--
+            <strong><field name="name" /></strong>
+            -->
+            <t t-set="red_or_black"
+               t-value="record.num_books == 0 ? '' : 'oe_kanban_text_red'"
+            />
+            <strong t-att-class="red_or_black">
+              <field name="name" />
+            </strong>
+          </div>
+          <div class="o_kanban_record_body">
+            <!-- Other content area  ... -->
+            <!-- Using t-att-f example
+            <div t-attf-class="oe_kanban_text_{{
+              record.priority.raw_value &lt; '2'
+              ? 'black' : 'red' }}">
+              <field name="request_date"/>
+            </div>
+            -->
+            <div t-att-class="record.priority.raw_value &lt; '2'
+              ? 'oe_kanban_text_black' : 'oe_kanban_text_red'">
+              <field name="request_date"/>
+            </div>
+            <div>
+              <t t-out="'Requested on ' + record.request_date.value" />
+              <t t-set="calendar_sign">
+                <i class="fa fa-calendar" title="Calendar" />
+              </t>
+              <t t-out="calendar_sign" />
+            </div>
+
+            <div t-if="record.num_books.raw_value == 0">
+              No books!
+            </div>
+            <div t-elif="record.num_books.raw_value == 1">
+              One book
+            </div>
+            <div t-else="">
+              <field name="num_books"/> books
+            </div>
+
+            <!--
+            <div>
+              <t t-foreach="record.line_ids.raw_value.slice(0, 5)" t-as="line">
+                <img t-att-src="kanban_image(
+                  'library.checkout.line', 'book_cover', line)"
+                  class="oe_avatar" height="60" alt="Cover" />
+                </t>
+            </div>
+            -->
+            <t t-call="book_covers">
+              <t t-set="limit" t-value="3" />
+            </t>
+
+            <div>
+              <field name="member_id"
+                     widget="many2one_avatar"/>
+            </div>
+          </div>
+
+          <div class="o_kanban_record_bottom">
+            <div class="oe_kanban_bottom_left">
+              <!-- Left side footer... -->
+              <field name="priority" widget="priority"/> 
+              <field name="activity_ids" widget="kanban_activity"/>
+
+            </div>
+            <div class="oe_kanban_bottom_right">
+                <!-- Right side footer... -->
+                <field name="kanban_state"
+                       widget="kanban_state_selection"/>
+
+                <field name="user_id"
+                       widget="many2one_avatar_user"/>
+            </div>
+          </div> <!-- o_kanban_record_bottom -->
+
+          <div class="oe_clear"/>
+        </div> <!-- oe_kanban_content -->
+      </div> <!-- oe_kanban_global_click -->
+    </t>
+  </templates>
+</kanban>
+
+    </field>
+  </record>
+
+<record id="res_partner_kanban_inherit" model="ir.ui.view">
+  <field name="name">Contact Kanban modification</field>
+  <field name="model">res.partner</field>
+  <field name="inherit_id" ref="base.res_partner_kanban_view" />
+  <field name="arch" type="xml">
+    <xpath
+     expr="//t[@t-name='kanban-box']//field[@name='display_name']"
+     position="before">
+     <span>Name: </span>
+    </xpath>
+  </field>
+</record>
+
+</odoo>
