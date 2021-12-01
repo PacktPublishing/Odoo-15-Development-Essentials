@@ -11,7 +11,7 @@
         "views/checkout_view.xml",
         "views/checkout_kanban_view.xml",  # Ch11
         "data/stage_data.xml",
-        # "views/assets.xml",  # Ch11, until Oddo14
+        # "views/assets.xml",  # Ch11, until Odoo 14
     ],
     "assets": {  # Ch11, since Odoo 15
         "web.assets_backend": {
