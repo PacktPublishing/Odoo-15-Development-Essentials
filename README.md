@@ -1,8 +1,8 @@
-# Odoo 15 Development Essentials
+# Odoo 15 Development Essentials - Fifth Edition
 
-<a href="https://www.packtpub.com/product/odoo-15-development-essentials-fifth-edition/9781800200067?utm_source=github&utm_medium=repository&utm_campaign=9781800200067"><img src="https://static.packt-cdn.com/products/9781800200067/cover/smaller" alt="Odoo 15 Development Essentials" height="256px" align="right"></a>
+<a href="https://www.packtpub.com/product/odoo-15-development-essentials-fifth-edition/9781800200067?utm_source=github&utm_medium=repository&utm_campaign=9781800200067"><img src="https://static.packt-cdn.com/products/9781800200067/cover/smaller" alt="Odoo 15 Development Essentials - Fifth Edition" height="256px" align="right"></a>
 
-This is the code repository for [Odoo 15 Development Essentials](https://www.packtpub.com/product/odoo-15-development-essentials-fifth-edition/9781800200067?utm_source=github&utm_medium=repository&utm_campaign=9781800200067), published by Packt.
+This is the code repository for [Odoo 15 Development Essentials - Fifth Edition](https://www.packtpub.com/product/odoo-15-development-essentials-fifth-edition/9781800200067?utm_source=github&utm_medium=repository&utm_campaign=9781800200067), published by Packt.
 
 **Enhance your Odoo development skills to create powerful business applications**
 
