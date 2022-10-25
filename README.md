@@ -58,3 +58,7 @@ We also provide a PDF file that has color images of the screenshots/diagrams use
 has a degree in applied mathematics and an MBA. He has had a long career in the IT industry, mostly as a consultant implementing business applications in a variety of sectors.
 He has been working with Odoo (OpenERP at the time) since 2010 and is an active contributor to the Odoo Community Association (OCA), where he also serves as a board member.
 He is the managing director of Open Source Integrators, a leading open source and Odoo consultancy firm.
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781800200067">https://packt.link/free-ebook/9781800200067 </a> </p>
