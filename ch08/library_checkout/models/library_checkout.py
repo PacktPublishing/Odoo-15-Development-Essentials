@@ -70,7 +70,7 @@ class Checkout(models.Model):
         # Code before create: should use the `vals` dict
         new_record = super().create(vals)
         # Code after create: can use the `new_record` created
-        if new_record.stage_id.state in ("open", "close"):
+        if new_record.stage_id.state in ("open", "done"):
             raise exceptions.UserError(
                 "State not allowed for new checkouts."
             )

@@ -102,9 +102,9 @@ class Checkout(models.Model):
     @api.model
     def create(self, vals):
         # Code before create: should use the `vals` dict
-        new_record = super().create(vals) 
+        new_record = super().create(vals)
         # Code after create: can use the `new_record` created
-        if new_record.stage_id.state in ("open", "close"):
+        if new_record.stage_id.state in ("open", "done"):
             raise exceptions.UserError(
                 "State not allowed for new checkouts."
             )
@@ -118,7 +118,7 @@ class Checkout(models.Model):
         old_state = self.stage_id.state
         super().write(vals)
         # Code after write: can use `self` with the updated values
-        new_state = self.stage_id.state 
+        new_state = self.stage_id.state
         if not self.env.context.get("_checkout_write"):
             if new_state != old_state and new_state == "open":
                 self.with_context(_checkout_write=True).write(
