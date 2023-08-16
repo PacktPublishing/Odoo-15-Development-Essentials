@@ -10,7 +10,7 @@ class Book(models.Model):
     _description = "Book"
     # ch06:
     _order = "name, date_published desc"
-    _recname = "name"
+    _rec_name = "name"
     _table = "library_book"
     _log_access = True
     _auto = True
