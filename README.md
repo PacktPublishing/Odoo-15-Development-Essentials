@@ -50,6 +50,10 @@ With the following software and hardware list you can run all code files present
 | 1-15 | Python 3.6 or later | Windows, Mac OS X, and Linux (Any) |
 
 We also provide a PDF file that has color images of the screenshots/diagrams used in this book. [Click here to download it]( https://static.packt-cdn.com/downloads/9781800200067_ColorImages.pdf).
+### Errata
+* Page no.113: There is a extra quote (') in the code block
+  It is : {"book"' : books}
+  It should be : {"book" : books}
 
 ### Related products
 * Odoo 14 Development Cookbook - Fourth Edition [[Packt]](https://www.packtpub.com/product/odoo-14-development-cookbook-fourth-edition/9781800200319?utm_source=github&utm_medium=repository&utm_campaign=9781800200319) [[Amazon]](https://www.amazon.com/dp/1800200315)
